@@ -1,0 +1,743 @@
+
+=== START tests/test_search.py::test_auth_success ===
+AUTH success: status=200 body={
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MTQxMDA4MCwianRpIjoiNzRjYzg0MTctZTVhZC00MTBiLWE1NWMtOTYyYzAwMDRhYjkyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlciIsIm5iZiI6MTc3MTQxMDA4MCwiY3NyZiI6IjE1NDlkNmNkLTUzYWEtNDM1Ny1hZDA5LTExMzk3YTNjOWRlYSIsImV4cCI6MTc3MTQxMDk4MH0.g69HzgCSyx_luL7pcJIfdiwn5dbM9W_0O_TR0us1I70"
+}
+=== END tests/test_search.py::test_auth_success ===
+
+=== START tests/test_search.py::test_auth_invalid_credentials[user-pass] ===
+AUTH invalid: user=user status=401 body={
+  "message": "\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0435 \u0456\u043c'\u044f \u043a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430 \u0430\u0431\u043e \u043f\u0430\u0440\u043e\u043b\u044c!"
+}
+=== END tests/test_search.py::test_auth_invalid_credentials[user-pass] ===
+
+=== START tests/test_search.py::test_auth_invalid_credentials[test_user-wrong_pass] ===
+AUTH invalid: user=test_user status=401 body={
+  "message": "\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0435 \u0456\u043c'\u044f \u043a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430 \u0430\u0431\u043e \u043f\u0430\u0440\u043e\u043b\u044c!"
+}
+=== END tests/test_search.py::test_auth_invalid_credentials[test_user-wrong_pass] ===
+
+=== START tests/test_search.py::test_auth_invalid_credentials[wrong_user-test_pass] ===
+AUTH invalid: user=wrong_user status=401 body={
+  "message": "\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0435 \u0456\u043c'\u044f \u043a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430 \u0430\u0431\u043e \u043f\u0430\u0440\u043e\u043b\u044c!"
+}
+=== END tests/test_search.py::test_auth_invalid_credentials[wrong_user-test_pass] ===
+
+=== START tests/test_search.py::test_auth_wrong_method ===
+AUTH wrong method: status=405 body=<!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+=== END tests/test_search.py::test_auth_wrong_method ===
+
+=== START tests/test_search.py::test_cars_unauthorized ===
+CARS unauth: status=401 body={
+  "msg": "Missing Authorization Header"
+}
+=== END tests/test_search.py::test_cars_unauthorized ===
+AUTH POST http://127.0.0.1:8080/auth user=test_user
+AUTH status=200 body={
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MTQxMDA4MCwianRpIjoiNWNiYTA5NWQtMTMwMy00NDJlLTlhMjktNjZjZDU4OTIyOTQ0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlciIsIm5iZiI6MTc3MTQxMDA4MCwiY3NyZiI6IjkyOGZmMmY1LWIwZTctNGJiZS1iZGUzLWI5Mzk3ODk1YWNjZiIsImV4cCI6MTc3MTQxMDk4MH0.m_Tn7H0KhD9PIHPnMsbwuaTdZkvlr438bel1N2oNq6Q"
+}
+
+=== START tests/test_search.py::test_cars_default ===
+CARS default: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_default ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[1] ===
+CARS limit=1: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  }
+]
+=== END tests/test_search.py::test_cars_limit_parametrized[1] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[3] ===
+CARS limit=3: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[3] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[5] ===
+CARS limit=5: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[5] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[10] ===
+CARS limit=10: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[10] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[25] ===
+CARS limit=25: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[25] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[30] ===
+CARS limit=30: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[30] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[50] ===
+CARS limit=50: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[50] ===
+
+=== START tests/test_search.py::test_cars_sorting_parametrized[year] ===
+CARS sort_by=year: status=200 body_prefix=[
+  {
+    "brand": "Ford",
+    "engine_volume": 2.2,
+    "price": 32000,
+    "year": 2015
+  },
+  {
+    "brand": "Honda",
+    "engine_volume": 1.6,
+    "price": 30000,
+    "year": 2016
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_sorting_parametrized[year] ===
+
+=== START tests/test_search.py::test_cars_sorting_parametrized[price] ===
+CARS sort_by=price: status=200 body_prefix=[
+  {
+    "brand": "Chevrolet",
+    "engine_volume": 1.8,
+    "price": 28000,
+    "year": 2018
+  },
+  {
+    "brand": "Hyundai",
+    "engine_volume": 1.6,
+    "price": 29000,
+    "year": 2020
+  },
+  {
+=== END tests/test_search.py::test_cars_sorting_parametrized[price] ===
+
+=== START tests/test_search.py::test_cars_sorting_parametrized[engine_volume] ===
+CARS sort_by=engine_volume: status=200 body_prefix=[
+  {
+    "brand": "Tesla",
+    "engine_volume": 0.0,
+    "price": 80000,
+    "year": 2020
+  },
+  {
+    "brand": "Nissan",
+    "engine_volume": 1.5,
+    "price": 40000,
+    "year": 2021
+  },
+  {
+    "
+=== END tests/test_search.py::test_cars_sorting_parametrized[engine_volume] ===
+
+=== START tests/test_search.py::test_cars_sort_and_limit[price-5] ===
+CARS sort+limit sort_by=price limit=5: status=200 body_prefix=[
+  {
+    "brand": "Chevrolet",
+    "engine_volume": 1.8,
+    "price": 28000,
+    "year": 2018
+  },
+  {
+    "brand": "Hyundai",
+    "engine_volume": 1.6,
+    "price": 29000,
+    "year": 2020
+  },
+  {
+=== END tests/test_search.py::test_cars_sort_and_limit[price-5] ===
+
+=== START tests/test_search.py::test_cars_sort_and_limit[year-7] ===
+CARS sort+limit sort_by=year limit=7: status=200 body_prefix=[
+  {
+    "brand": "Ford",
+    "engine_volume": 2.2,
+    "price": 32000,
+    "year": 2015
+  },
+  {
+    "brand": "Honda",
+    "engine_volume": 1.6,
+    "price": 30000,
+    "year": 2016
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_sort_and_limit[year-7] ===
+
+=== START tests/test_search.py::test_cars_sort_and_limit[engine_volume-4] ===
+CARS sort+limit sort_by=engine_volume limit=4: status=200 body_prefix=[
+  {
+    "brand": "Tesla",
+    "engine_volume": 0.0,
+    "price": 80000,
+    "year": 2020
+  },
+  {
+    "brand": "Nissan",
+    "engine_volume": 1.5,
+    "price": 40000,
+    "year": 2021
+  },
+  {
+    "
+=== END tests/test_search.py::test_cars_sort_and_limit[engine_volume-4] ===
+
+=== START tests/test_search.py::test_cars_invalid_sort_by ===
+CARS invalid sort_by: status=200 body=[
+  {
+    "brand": "BMW",
+    "engine_volume": 2.0,
+    "price": 50000,
+    "year": 2018
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "brand": "Mercedes",
+    "engine_volume": 2.5,
+    "price": 55000,
+    "year": 2019
+  },
+  {
+    "brand": "Toyota",
+    "engine_volume": 2.4,
+    "price": 35000,
+    "year": 2017
+  },
+  {
+    "brand": "Honda",
+    "engine_volume": 1.6,
+    "price": 30000,
+    "year": 2016
+  },
+  {
+    "brand": "Nissan",
+    "engine_volume": 1.5,
+    "price": 40000,
+    "year": 2021
+  },
+  {
+    "brand": "Ford",
+    "engine_volume": 2.2,
+    "price": 32000,
+    "year": 2015
+  },
+  {
+    "brand": "Chevrolet",
+    "engine_volume": 1.8,
+    "price": 28000,
+    "year": 2018
+  },
+  {
+    "brand": "Volkswagen",
+    "engine_volume": 2.0,
+    "price": 33000,
+    "year": 2019
+  },
+  {
+    "brand": "Hyundai",
+    "engine_volume": 1.6,
+    "price": 29000,
+    "year": 2020
+  },
+  {
+    "brand": "Kia",
+    "engine_volume": 2.0,
+    "price": 31000,
+    "year": 2019
+  },
+  {
+    "brand": "Subaru",
+    "engine_volume": 2.5,
+    "price": 40000,
+    "year": 2017
+  },
+  {
+    "brand": "Mazda",
+    "engine_volume": 2.0,
+    "price": 32000,
+    "year": 2018
+  },
+  {
+    "brand": "Lexus",
+    "engine_volume": 3.0,
+    "price": 60000,
+    "year": 2021
+  },
+  {
+    "brand": "Infiniti",
+    "engine_volume": 3.5,
+    "price": 52000,
+    "year": 2019
+  },
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Jeep",
+    "engine_volume": 3.6,
+    "price": 45000,
+    "year": 2018
+  },
+  {
+    "brand": "Land Rover",
+    "engine_volume": 2.0,
+    "price": 55000,
+    "year": 2020
+  },
+  {
+    "brand": "Volvo",
+    "engine_volume": 2.0,
+    "price": 46000,
+    "year": 2019
+  },
+  {
+    "brand": "Porsche",
+    "engine_volume": 3.0,
+    "price": 70000,
+    "year": 2021
+  },
+  {
+    "brand": "Tesla",
+    "engine_volume": 0.0,
+    "price": 80000,
+    "year": 2020
+  },
+  {
+    "brand": "Ferrari",
+    "engine_volume": 6.3,
+    "price": 250000,
+    "year": 2021
+  },
+  {
+    "brand": "Lamborghini",
+    "engine_volume": 6.5,
+    "price": 300000,
+    "year": 2020
+  },
+  {
+    "brand": "Bugatti",
+    "engine_volume": 8.0,
+    "price": 350000,
+    "year": 2019
+  },
+  {
+    "brand": "McLaren",
+    "engine_volume": 4.0,
+    "price": 280000,
+    "year": 2021
+  }
+]
+=== END tests/test_search.py::test_cars_invalid_sort_by ===
+
+=== START tests/test_search.py::test_auth_success ===
+AUTH success: status=200 body={
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MTQxMDIwMSwianRpIjoiNjc4NjU2MjktMDlkNC00YWVhLWExODgtMjYxZTM3OWQ2NjQwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlciIsIm5iZiI6MTc3MTQxMDIwMSwiY3NyZiI6IjYxNzJjMjAyLTgxNGUtNDA3MC1iZTlkLTlmM2M4MTY2N2Q4OCIsImV4cCI6MTc3MTQxMTEwMX0.Zr8DHQP01rH4RPRgx8RO5PxnXg6vo7OQ54MRL7IF9S0"
+}
+=== END tests/test_search.py::test_auth_success ===
+
+=== START tests/test_search.py::test_auth_invalid_credentials[user-pass] ===
+AUTH invalid: user=user status=401 body={
+  "message": "\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0435 \u0456\u043c'\u044f \u043a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430 \u0430\u0431\u043e \u043f\u0430\u0440\u043e\u043b\u044c!"
+}
+=== END tests/test_search.py::test_auth_invalid_credentials[user-pass] ===
+
+=== START tests/test_search.py::test_auth_invalid_credentials[test_user-wrong_pass] ===
+AUTH invalid: user=test_user status=401 body={
+  "message": "\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0435 \u0456\u043c'\u044f \u043a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430 \u0430\u0431\u043e \u043f\u0430\u0440\u043e\u043b\u044c!"
+}
+=== END tests/test_search.py::test_auth_invalid_credentials[test_user-wrong_pass] ===
+
+=== START tests/test_search.py::test_auth_invalid_credentials[wrong_user-test_pass] ===
+AUTH invalid: user=wrong_user status=401 body={
+  "message": "\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0435 \u0456\u043c'\u044f \u043a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430 \u0430\u0431\u043e \u043f\u0430\u0440\u043e\u043b\u044c!"
+}
+=== END tests/test_search.py::test_auth_invalid_credentials[wrong_user-test_pass] ===
+
+=== START tests/test_search.py::test_auth_wrong_method ===
+AUTH wrong method: status=405 body=<!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+=== END tests/test_search.py::test_auth_wrong_method ===
+
+=== START tests/test_search.py::test_cars_unauthorized ===
+CARS unauth: status=401 body={
+  "msg": "Missing Authorization Header"
+}
+=== END tests/test_search.py::test_cars_unauthorized ===
+AUTH POST http://127.0.0.1:8080/auth user=test_user
+AUTH status=200 body={
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MTQxMDIwMSwianRpIjoiNDI2M2RkOGQtNzEwYS00ODg0LWE2NzAtZWJjNDdmZDNkNTJiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RfdXNlciIsIm5iZiI6MTc3MTQxMDIwMSwiY3NyZiI6ImE4NGQ5MzlkLWQ0NGUtNDUxZi05NzU2LWU0NjNmOGUwYjRjOSIsImV4cCI6MTc3MTQxMTEwMX0.JCClqzkQPqKJV3l6O_rNOZH4qGTmSut7Zh_ebmIrJXk"
+}
+
+=== START tests/test_search.py::test_cars_default ===
+CARS default: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_default ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[1] ===
+CARS limit=1: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  }
+]
+=== END tests/test_search.py::test_cars_limit_parametrized[1] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[3] ===
+CARS limit=3: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[3] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[5] ===
+CARS limit=5: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[5] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[10] ===
+CARS limit=10: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[10] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[25] ===
+CARS limit=25: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[25] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[30] ===
+CARS limit=30: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[30] ===
+
+=== START tests/test_search.py::test_cars_limit_parametrized[50] ===
+CARS limit=50: status=200 body_prefix=[
+  {
+    "brand": "Acura",
+    "engine_volume": 2.4,
+    "price": 48000,
+    "year": 2020
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_limit_parametrized[50] ===
+
+=== START tests/test_search.py::test_cars_sorting_parametrized[year] ===
+CARS sort_by=year: status=200 body_prefix=[
+  {
+    "brand": "Ford",
+    "engine_volume": 2.2,
+    "price": 32000,
+    "year": 2015
+  },
+  {
+    "brand": "Honda",
+    "engine_volume": 1.6,
+    "price": 30000,
+    "year": 2016
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_sorting_parametrized[year] ===
+
+=== START tests/test_search.py::test_cars_sorting_parametrized[price] ===
+CARS sort_by=price: status=200 body_prefix=[
+  {
+    "brand": "Chevrolet",
+    "engine_volume": 1.8,
+    "price": 28000,
+    "year": 2018
+  },
+  {
+    "brand": "Hyundai",
+    "engine_volume": 1.6,
+    "price": 29000,
+    "year": 2020
+  },
+  {
+=== END tests/test_search.py::test_cars_sorting_parametrized[price] ===
+
+=== START tests/test_search.py::test_cars_sorting_parametrized[engine_volume] ===
+CARS sort_by=engine_volume: status=200 body_prefix=[
+  {
+    "brand": "Tesla",
+    "engine_volume": 0.0,
+    "price": 80000,
+    "year": 2020
+  },
+  {
+    "brand": "Nissan",
+    "engine_volume": 1.5,
+    "price": 40000,
+    "year": 2021
+  },
+  {
+    "
+=== END tests/test_search.py::test_cars_sorting_parametrized[engine_volume] ===
+
+=== START tests/test_search.py::test_cars_sort_and_limit[price-5] ===
+CARS sort+limit sort_by=price limit=5: status=200 body_prefix=[
+  {
+    "brand": "Chevrolet",
+    "engine_volume": 1.8,
+    "price": 28000,
+    "year": 2018
+  },
+  {
+    "brand": "Hyundai",
+    "engine_volume": 1.6,
+    "price": 29000,
+    "year": 2020
+  },
+  {
+=== END tests/test_search.py::test_cars_sort_and_limit[price-5] ===
+
+=== START tests/test_search.py::test_cars_sort_and_limit[year-7] ===
+CARS sort+limit sort_by=year limit=7: status=200 body_prefix=[
+  {
+    "brand": "Ford",
+    "engine_volume": 2.2,
+    "price": 32000,
+    "year": 2015
+  },
+  {
+    "brand": "Honda",
+    "engine_volume": 1.6,
+    "price": 30000,
+    "year": 2016
+  },
+  {
+    "br
+=== END tests/test_search.py::test_cars_sort_and_limit[year-7] ===
+
+=== START tests/test_search.py::test_cars_sort_and_limit[engine_volume-4] ===
+CARS sort+limit sort_by=engine_volume limit=4: status=200 body_prefix=[
+  {
+    "brand": "Tesla",
+    "engine_volume": 0.0,
+    "price": 80000,
+    "year": 2020
+  },
+  {
+    "brand": "Nissan",
+    "engine_volume": 1.5,
+    "price": 40000,
+    "year": 2021
+  },
+  {
+    "
+=== END tests/test_search.py::test_cars_sort_and_limit[engine_volume-4] ===
+
+=== START tests/test_search.py::test_cars_invalid_sort_by_is_ignored ===
+CARS invalid sort_by (ignored): status=200 body_prefix=[
+  {
+    "brand": "BMW",
+    "engine_volume": 2.0,
+    "price": 50000,
+    "year": 2018
+  },
+  {
+    "brand": "Audi",
+    "engine_volume": 1.8,
+    "price": 45000,
+    "year": 2020
+  },
+  {
+    "bran
+=== END tests/test_search.py::test_cars_invalid_sort_by_is_ignored ===
